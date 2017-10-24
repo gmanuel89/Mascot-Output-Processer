@@ -12,7 +12,7 @@ mascot_output_processer <- function() {
   
   
   ### Program version (Specified by the program writer!!!!)
-  R_script_version <- "2017.10.13.0"
+  R_script_version <- "2017.10.24.0"
   ### Force update (in case something goes wrong after an update, when checking for updates and reading the variable force_update, the script can automatically download the latest working version, even if the rest of the script is corrupted, because it is the first thing that reads)
   force_update <- FALSE
   ### GitHub URL where the R file is
@@ -346,6 +346,8 @@ mascot_output_processer <- function() {
   output_file_type_export_choice <- function() {
     # Catch the value from the menu
     output_format <- select.list(c("Comma Separated Values (.csv)", "Microsoft Excel (.xls)", "Microsoft Excel (.xlsx)"), title = "Choose output file format")
+    # Focus the main window
+    tkraise(window)
     # Fix the file format
     if (output_format == "Comma Separated Values (.csv)" || output_format == "") {
       file_format <- "csv"
@@ -388,6 +390,8 @@ mascot_output_processer <- function() {
   image_file_type_export_choice <- function() {
     # Catch the value from the menu
     image_output_format <- select.list(c("JPG (.jpg)", "PNG (.png)", "TIFF (.tiff)"), title = "Choose image format")
+    # Focus the main window
+    tkraise(window)
     # Fix the file format
     if (image_output_format == "JPG (.jpg)") {
       image_format <- ".jpg"
@@ -451,11 +455,11 @@ mascot_output_processer <- function() {
         if (Sys.info()[1] == "Linux" || Sys.info()[1] == "Darwin") {
           input_filename <- unlist(strsplit(input_file, "/"))
           input_filename <- input_filename[length(input_filename)]
-          input_filename <- unlist(strsplit(input_filename, ".", fixed = TRUE))[1]
+          input_filename <- unlist(strsplit(input_filename, ".csv", fixed = TRUE))[1]
         } else if (Sys.info()[1] == "Windows") {
           input_filename <- unlist(strsplit(input_file, "\\\\"))
           input_filename <- input_filename[length(input_filename)]
-          input_filename <- unlist(strsplit(input_filename, ".", fixed = TRUE))[1]
+          input_filename <- unlist(strsplit(input_filename, ".csv", fixed = TRUE))[1]
         }
       }, silent = TRUE)
       # Input folder as class name
